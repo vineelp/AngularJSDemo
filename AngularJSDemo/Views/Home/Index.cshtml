@@ -5,16 +5,29 @@
 
 <!DOCTYPE html>
 
-<html ng-app="">
+<html ng-app="myApp">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <script src="~/Scripts/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('MyFirstCtrl', function ($scope) {
+            $scope.empList = [
+            { name: 'John', location: 'Bangaluru' },
+            { name: 'Bob', location: 'Hyderabad' },
+            { name: 'Rob', location: 'Delhi' },
+            { name: 'Johny', location: 'signapore' }];
+        });
+    </script>
 </head>
-<body>
-    <div> 
+<body ng-controller="MyFirstCtrl">
+    <div>
         <p>Name: <input type="text" ng-model="UName" /></p>
         <p>My Name is: {{UName}}</p>
     </div>
+    <h2>Number of Employees: {{empList.length}}</h2>
+    <p>search: <input type="text" ng-model="test" /></p>
+    <p ng-repeat="x in empList | orderBy:'name' | filter:test">{{x.name+' from '+(x.location | uppercase)}}</p>
 </body>
 </html>
